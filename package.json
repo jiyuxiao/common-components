@@ -2,7 +2,7 @@
   "name": "cm-cps",
   "version": "1.0.0",
   "description": "公共组件",
-  "main": "index.js",
+  "main": "client.js",
   "scripts": {
     "test": "mark test"
   },
@@ -11,9 +11,17 @@
     "url": "git+https://github.com/jiyuxiao/common-components.git"
   },
   "author": "jyx",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jiyuxiao/common-components/issues"
   },
-  "homepage": "https://github.com/jiyuxiao/common-components#readme"
+  "homepage": "https://github.com/jiyuxiao/common-components#readme",
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
