@@ -1,6 +1,6 @@
 {
   "name": "cm-cps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "公共组件",
   "main": "client.js",
   "scripts": {
@@ -23,5 +23,8 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "dependencies": {
+    "cm-cps": "^1.0.0"
+  }
 }

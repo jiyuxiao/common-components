@@ -12,106 +12,20 @@ function getUrl(para) {
 }
 
 //判断机型
-let u = navigator.userAgent;
-let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-let blatFrom = 0;
-// 返回1是android系统
-if (isAndroid) {
-  blatFrom = 1;
-}
-// 返回2是ios系统
-if (isiOS) {
-  blatFrom = 2;
-}
-
-//关闭h5
-const closeH5 = () =>{
-  try{
-    if(blatFrom==1){
-      alaAndroid.closeWebView();
-    }else{
-      window.location.href = '/fanbei-web/opennative?name=APP_CLOSE_H5';
-    }
-  }catch(e){
-    console.log('notClient: ',e)
+const whichClient = ()=>{
+  let u = navigator.userAgent;
+  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+  // 返回1是android系统
+  if (isAndroid) {
+    return 1;
+  }
+  // 返回2是ios系统
+  if (isiOS) {
+    return 2;
   }
 }
 
-//去认证
-const goAuthentication = () =>{
-  try{
-    if(blatFrom == 1){//去认证
-      window.location.href='/fanbei-web/opennative?name=GG_com.alfl.www.main.ui.CreditCenterActivity';
-    }else{
-      window.location.href='/fanbei-web/opennative?name=GG_YSCredentialCenterViewController';
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//去登录
-const goLogin = () =>{
-  try{
-    window.location.href='/fanbei-web/opennative?name=APP_LOGIN';
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转搜索tag页
-const goSearchTag = () =>{
-  try{
-    window.location.href = '/fanbei-web/opennative?name=JUMP_SEARCHPAGE';
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转购物车
-const goShopCartApp = () =>{
-  try{
-    if(blatFrom == 1){
-      window.location.href = '/fanbei-web/opennative?name=GG_com.alfl.www.user.ui.ShoppingTrolleyActivity';
-    }else{
-      window.location.href = '/fanbei-web/opennative?name=GG_ALAShoppingCartViewController';
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转订单列表
-const goOrderListApp = () =>{
-  try{
-    if(blatFrom == 1){
-      window.location.href = '/fanbei-web/opennative?name=GG_com.alfl.www.user.ui.OrderListActivity';
-    }else{
-      window.location.href = '/fanbei-web/opennative?name=GG_ALAOrderContainerViewController';
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转首页
-const goHome = () =>{
-  try{
-    window.location.href = '/fanbei-web/opennative?name=APP_HOME';
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-// 客服
-const goCustomerService = () => {
-  try{
-    window.location.href = '/fanbei-web/opennative?name=APP_CONTACT_CUSTOMER';
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
 
 // 扫码付款
 const toScanCodePay = () => {
@@ -119,43 +33,6 @@ const toScanCodePay = () => {
     window.location.href = '/fanbei-web/opennative?name=GG_com.alfl.www.main.ui.QRCodeScanActivity';
   } else {
     window.location.href = '/fanbei-web/opennative?name=GG_SubLBXScanViewController';
-  }
-}
-
-
-
-//打开h5
-const openH5 = (url) =>{
-  try{
-    if(blatFrom==1){
-      alaAndroid.jumpToOtherH5(url);
-    }else{
-      window.webkit.messageHandlers.jumpToOtherH5.postMessage(url);
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转商品详情
-const goGoodDetail = (id,lc) =>{
-  try{
-    window.location.href = '/fanbei-web/opennative?name=GOODS_DETAIL_INFO&params={"privateGoodsId":"' + id +'","lc":"'+ lc +'"}';
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转收银台
-const goCheckoutApp = (orderType,orderId,isGoBack) =>{
-  try{
-    if(blatFrom == 1){
-      window.location.href = '/fanbei-web/opennative?name=APP_RENT&params={"orderType":"'+orderType+'","orderId":"'+orderId+'","isGoBack":"'+ isGoBack +'"}';
-    }else{
-      window.location.href = '/fanbei-web/opennative?name=APP_CASHIER&params={"orderType":"'+orderType+'","orderId":"'+orderId+'","isGoBack":"'+ isGoBack +'"}';
-    }
-  }catch(e){
-    console.log('notClient: ',e)
   }
 }
 
@@ -223,84 +100,11 @@ const goMiniProgramShare = (shareData, methodType) =>{
   }
 }
 
-//小程序中打开商品详情页
-const openMiniProgramGoodDetail = (goodsId,lc='') =>{
-  try{
-    if(lc){
-      wx.miniProgram.navigateTo({ url: '/pages/common/goodsDetail?goodsId=' + goodsId + '&lc=' + lc })
-    }else{
-      wx.miniProgram.navigateTo({ url: '/pages/common/goodsDetail?goodsId=' + goodsId })
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//小程序中打开某一h5页面
-const openMiniProgramH5 = (url) =>{
-  try{
-    wx.miniProgram.navigateTo({ url: '/pages/webview/index?url=' + BASE64.encoder(url) })
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转小程序登录页
-const goMiniProgramLogin = () =>{
-  try{
-    wx.miniProgram.navigateTo({ url: '/pages/common/login'});
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
-
-//跳转消息中心页面
-const goMsgCenterApp = () =>{
-  try{
-    let version = getUrl('_appInfo') ? eval('(' + decodeURIComponent(getUrl('_appInfo')) + ')').appVersion :'';
-    if(blatFrom == 1){
-      window.location.href = '/fanbei-web/opennative?name=GG_com.alfl.www.user.ui.MessageListActivity';
-    }else{
-      if(version < 435){
-        window.location.href = '/fanbei-web/opennative?name=GG_ALAMessageViewController';
-      }else{
-        window.location.href = '/fanbei-web/opennative?name=GG_ZYSMsgPageViewController';
-      }
-    }
-  }catch(e){
-    console.log('notClient: ',e)
-  }
-}
 
 export {
-// export default{
-  closeH5,//关闭当前的webview
-  goAuthentication,//跳转客户端的去认证页面
-  goLogin,//跳转客户端的登录页面
-  goSearchTag,//跳转搜索tag页
-  goShopCartApp,//跳转购物车
-  goOrderListApp,//跳转订单列表
-  goHome,//跳转首页
-  goCustomerService,//跳转客服
+  getUrl,
+  whichClient,
   toScanCodePay,//扫码付款
-  goMiniProgramLogin,//跳转小程序登录页
-  goMsgCenterApp,//跳转消息中心页面
-
-  //打开一个新的webview
-  openH5,
-  //@param {string} url 一个新的地址
-
-  //跳转商品详情
-  goGoodDetail,
-  // @param {string} id 商品id
-  // @param {string} lc 商品lc
-
-  //跳转收银台
-  goCheckoutApp,
-  // @param {string} orderType 订单类型
-  // @param {string} orderId 订单id
-  // @param {string} isGoBack 是否返回刷新 Y需要，N不需要
-
   //app内部分享
   goAppShare,
   // 参数一(必传)
@@ -341,13 +145,5 @@ export {
     // @property {string} miniProgramWebpageUrl 备用页面 默认为'https://app.51fanbei.com/app/user/channelRegister?channelCode=%08default&pointCode=default'
   // 参数二(必传)
   // @param {string} methodType 分享方法类型 右上角分享alaShare(安卓未加暂不能用) 点击分享clickShare 自定义分享selfShare
-
-  //分享到小程序商品详情页
-  openMiniProgramGoodDetail,
-  // @param {string} goodsId 商品id
-
-  //某一h5页面分享到小程序
-  openMiniProgramH5,
-  // @param {string} url 分享页url
 
 }
