@@ -1,0 +1,19 @@
+{
+  "name": "cm-cps",
+  "version": "1.0.0",
+  "description": "公共组件",
+  "main": "index.js",
+  "scripts": {
+    "test": "mark test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiyuxiao/common-components.git"
+  },
+  "author": "jyx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiyuxiao/common-components/issues"
+  },
+  "homepage": "https://github.com/jiyuxiao/common-components#readme"
+}
